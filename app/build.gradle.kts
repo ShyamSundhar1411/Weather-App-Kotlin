@@ -67,9 +67,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
-    implementation(libs.room.compiler)
     implementation(libs.okhttp)
-    implementation(libs.okhttp.bom)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
@@ -81,4 +79,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     ksp(libs.hilt.compiler)
+    ksp(libs.room.compiler)
 }

@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.jetweatherapp.routes.Routes
+import com.example.jetweatherapp.screens.MainScreen
 import com.example.jetweatherapp.screens.SplashScreen
 
 @Composable
@@ -15,6 +16,8 @@ fun WeatherNavigation() {
         composable(Routes.SplashScreen.name){
             SplashScreen(navController = navController)
         }
-
+        composable(Routes.MainScreen.name) {
+            MainScreen(navController = navController)
+        }
     }
 }
