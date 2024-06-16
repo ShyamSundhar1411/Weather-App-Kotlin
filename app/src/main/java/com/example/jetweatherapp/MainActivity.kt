@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun WeatherApp(){
-    JetWeatherAppTheme(darkTheme = false) {
+    JetWeatherAppTheme(darkTheme = false  ) {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)){
                 WeatherNavigation()
