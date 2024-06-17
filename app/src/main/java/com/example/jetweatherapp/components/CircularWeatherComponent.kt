@@ -16,14 +16,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.jetweatherapp.model.Weather
+import com.example.jetweatherapp.utils.formatDate
+import com.example.jetweatherapp.utils.formatDecimals
 
 @Composable
 fun CircularWeatherComponent(modifier: Modifier = Modifier,weatherData: Weather){
-    val imageUrl = "https://openweathermap.org/img/wn/${weatherData.list[0].weather[0].icon}.png"
+    val weatherItem = weatherData.list[0]
+
+    val imageUrl = "https://openweathermap.org/img/w/${weatherItem.weather[0].icon}.png"
 
 
     Text(
-            text = "Nov 29",
+            text = formatDate(weatherItem.dt),
             style = MaterialTheme.typography.labelLarge,
             color = Color.Black,
             fontWeight = FontWeight.SemiBold,
@@ -44,13 +48,14 @@ fun CircularWeatherComponent(modifier: Modifier = Modifier,weatherData: Weather)
                     imageUrl = imageUrl
                 )
                 Text(
-                    text = "56",
+                    text = formatDecimals(weatherItem.temp.day)+"°",
                     style = MaterialTheme.typography.displayMedium,
                     fontWeight = FontWeight.ExtraBold
                 )
+
                 Text(
-                    text = "Rainy",
-                    style = MaterialTheme.typography.displaySmall
+                    text = weatherItem.weather[0].main,
+                    style = MaterialTheme.typography.bodySmall
                 )
             }
         }
