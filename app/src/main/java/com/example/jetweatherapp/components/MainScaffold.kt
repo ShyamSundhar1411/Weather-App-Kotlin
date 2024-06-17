@@ -1,5 +1,7 @@
 package com.example.jetweatherapp.components
 
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,6 +23,6 @@ fun MainScaffold(weather: Weather,navController: NavController) {
         WeatherAppBar(title = weather.city.name + ", ${weather.city.country}")
     }
     ) {
-        MainContent(data = weather,modifier = Modifier.padding(it))
+        MainContent(data = weather,modifier = Modifier.padding(it).fillMaxWidth())
     }
 }

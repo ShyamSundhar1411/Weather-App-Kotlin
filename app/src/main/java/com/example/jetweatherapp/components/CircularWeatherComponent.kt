@@ -1,7 +1,7 @@
 package com.example.jetweatherapp.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -19,9 +19,10 @@ import com.example.jetweatherapp.model.Weather
 
 @Composable
 fun CircularWeatherComponent(modifier: Modifier = Modifier,weatherData: Weather){
-    val imageUrl = "https://openweathermap.org/img/wn/ ${weatherData.list[0].weather[0].icon}.png"
+    val imageUrl = "https://openweathermap.org/img/wn/${weatherData.list[0].weather[0].icon}.png"
 
-        Text(
+
+    Text(
             text = "Nov 29",
             style = MaterialTheme.typography.labelLarge,
             color = Color.Black,
