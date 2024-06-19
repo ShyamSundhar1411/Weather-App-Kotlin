@@ -26,9 +26,10 @@ fun MainContent(data: Weather, modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CircularWeatherComponent(weatherData = data)
-        HumidityWindPressureComponent(weatherData = data.list[0])
+        HumidityWindPressureComponent(weatherItem = data.list[0])
         HorizontalDivider()
-        SunSetSunRiseComponent(weatherData = data.list[0])
+        SunSetSunRiseComponent(weatherItem = data.list[0])
+        WeatherDetailComponent(weatherData = data)
 
     }
 }

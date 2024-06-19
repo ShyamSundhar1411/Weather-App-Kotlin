@@ -19,7 +19,7 @@ import com.example.jetweatherapp.R
 import com.example.jetweatherapp.model.WeatherItem
 
 @Composable
-fun HumidityWindPressureComponent(weatherData: WeatherItem){
+fun HumidityWindPressureComponent(weatherItem: WeatherItem){
     Row(
         modifier = Modifier.fillMaxWidth().padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -35,7 +35,7 @@ fun HumidityWindPressureComponent(weatherData: WeatherItem){
                 modifier = Modifier.size(20.dp)
             )
             Text(
-                text = "${weatherData.humidity}%",
+                text = "${weatherItem.humidity}%",
                 style = MaterialTheme.typography.labelSmall
             )
 
@@ -47,7 +47,7 @@ fun HumidityWindPressureComponent(weatherData: WeatherItem){
                 modifier = Modifier.size(20.dp)
             )
             Text(
-                text = "${weatherData.pressure} psi",
+                text = "${weatherItem.pressure} psi",
                 style = MaterialTheme.typography.labelSmall
             )
         }
@@ -58,7 +58,7 @@ fun HumidityWindPressureComponent(weatherData: WeatherItem){
                 modifier = Modifier.size(20.dp)
             )
             Text(
-                text = "${weatherData.sunrise} mph",
+                text = "${weatherItem.sunrise} mph",
                 style = MaterialTheme.typography.labelSmall
             )
         }

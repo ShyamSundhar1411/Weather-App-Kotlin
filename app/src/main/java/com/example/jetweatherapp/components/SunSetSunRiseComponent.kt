@@ -18,7 +18,7 @@ import com.example.jetweatherapp.model.WeatherItem
 import com.example.jetweatherapp.utils.formatDateTime
 
 @Composable
-fun SunSetSunRiseComponent(weatherData: WeatherItem) {
+fun SunSetSunRiseComponent(weatherItem: WeatherItem) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -33,7 +33,7 @@ fun SunSetSunRiseComponent(weatherData: WeatherItem) {
                 modifier = Modifier.size(20.dp)
             )
             Text(
-                text = formatDateTime(weatherData.sunrise),
+                text = formatDateTime(weatherItem.sunrise),
                 style = MaterialTheme.typography.labelSmall
             )
         }
@@ -44,7 +44,7 @@ fun SunSetSunRiseComponent(weatherData: WeatherItem) {
                 modifier = Modifier.size(25.dp)
             )
             Text(
-                text = formatDateTime(weatherData.sunset),
+                text = formatDateTime(weatherItem.sunset),
                 style = MaterialTheme.typography.labelSmall
             )
         }
