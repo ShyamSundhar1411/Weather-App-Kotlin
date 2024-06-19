@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -24,6 +26,9 @@ fun MainContent(data: Weather, modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CircularWeatherComponent(weatherData = data)
+        HumidityWindPressureComponent(weatherData = data.list[0])
+        HorizontalDivider()
+        SunSetSunRiseComponent(weatherData = data.list[0])
 
     }
 }
