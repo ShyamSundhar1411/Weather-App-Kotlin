@@ -18,7 +18,9 @@ import com.example.jetweatherapp.viewmodel.MainViewModel
 
 @Composable
 fun MainScreen(navController: NavController,
-               mainViewModel: MainViewModel = hiltViewModel()){
+               mainViewModel: MainViewModel = hiltViewModel(),
+               city: String = "Seattle"
+               ){
     Box(
        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
@@ -27,7 +29,7 @@ fun MainScreen(navController: NavController,
         val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
             initialValue = DataOrException(loading = true),
         ) {
-            value = mainViewModel.getWeatherData(city = "Manhattan")
+            value = mainViewModel.getWeatherData(city = city)
 
         }.value
         if(weatherData.loading == true){

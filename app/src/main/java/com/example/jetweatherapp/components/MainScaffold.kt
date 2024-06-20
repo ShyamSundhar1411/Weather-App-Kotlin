@@ -14,13 +14,21 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.jetweatherapp.data.DataOrException
 import com.example.jetweatherapp.model.Weather
+import com.example.jetweatherapp.routes.Routes
 import com.example.jetweatherapp.viewmodel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScaffold(weather: Weather,navController: NavController) {
     Scaffold(topBar = {
-        WeatherAppBar(title = weather.city.name + ", ${weather.city.country}")
+        WeatherAppBar(title = weather.city.name + ", ${weather.city.country}",
+            navController = navController,
+            onAddActionClicked = {
+                navController.navigate(
+                    Routes.SearchScreen.name
+                )
+            }
+        )
     }
     ) {
         MainContent(data = weather,modifier = Modifier.padding(it).fillMaxWidth())

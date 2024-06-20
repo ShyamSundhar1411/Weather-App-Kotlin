@@ -33,6 +33,7 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavController){
+    val defaultCity = "Chennai"
     val scale = remember {
         Animatable(0f)
     }
@@ -49,7 +50,7 @@ fun SplashScreen(navController: NavController){
 
         )
         delay(2000L)
-        navController.navigate(Routes.MainScreen.name)
+        navController.navigate(Routes.MainScreen.name+"/$defaultCity")
 
     })
     Box(

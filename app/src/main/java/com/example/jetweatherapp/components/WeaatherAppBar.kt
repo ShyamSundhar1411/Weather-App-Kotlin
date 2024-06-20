@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
 @Composable
 fun WeatherAppBar(
     modifier: Modifier = Modifier,
@@ -30,7 +29,7 @@ fun WeatherAppBar(
     icon: ImageVector? = null,
     isMainScreen: Boolean = true,
     elevation: Dp = 0.dp,
-//    navController: NavController = null,
+    navController: NavController,
     onAddActionClicked: () -> Unit = {},
     onButtonClicked: () -> Unit = {}
     ){
@@ -48,10 +47,10 @@ fun WeatherAppBar(
         },
         actions = {
               if(isMainScreen){
-                  IconButton(onClick = { /*TODO*/ }) {
+                  IconButton(onClick = { onAddActionClicked.invoke() }) {
                         Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
                   }
-                  IconButton(onClick = { /*TODO*/ }) {
+                  IconButton(onClick = { onButtonClicked.invoke()}) {
                       Icon(imageVector = Icons.Rounded.MoreVert, contentDescription = "More")
                   }
               }
