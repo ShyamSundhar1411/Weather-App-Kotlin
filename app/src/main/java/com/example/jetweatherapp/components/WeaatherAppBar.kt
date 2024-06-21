@@ -1,21 +1,41 @@
 package com.example.jetweatherapp.components
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.absolutePadding
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.rounded.MoreVert
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,6 +53,12 @@ fun WeatherAppBar(
     onAddActionClicked: () -> Unit = {},
     onButtonClicked: () -> Unit = {}
     ){
+    val showDialogBox = remember {
+        mutableStateOf(false)
+    }
+    if (showDialogBox.value) {
+        ShowDropDownMenu(showDialog = showDialogBox, navController = navController)
+    }
     TopAppBar(
         title = {
 
@@ -50,7 +76,9 @@ fun WeatherAppBar(
                   IconButton(onClick = { onAddActionClicked.invoke() }) {
                         Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
                   }
-                  IconButton(onClick = { onButtonClicked.invoke()}) {
+                  IconButton(onClick = {
+                      showDialogBox.value = !showDialogBox.value
+                  }) {
                       Icon(imageVector = Icons.Rounded.MoreVert, contentDescription = "More")
                   }
               }
@@ -67,3 +95,55 @@ fun WeatherAppBar(
 
     )
 }
+
+@Composable
+fun ShowDropDownMenu(showDialog: MutableState<Boolean>, navController: NavController) {
+    val expanded = remember {
+        mutableStateOf(true)
+    }
+    val items = listOf(
+        mapOf(
+            "About" to Icons.Default.Info,
+            "Favorites" to Icons.Default.Favorite,
+            "Settings" to Icons.Default.Settings,
+        )
+    )
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentSize(Alignment.TopEnd)
+            .padding(top = 45.dp, end = 20.dp)
+
+    ) {
+        DropdownMenu(
+            expanded = expanded.value,
+            onDismissRequest = {
+                expanded.value = false
+
+            },
+            modifier = Modifier
+                .width(160.dp)
+                .background(Color.White)
+        ) {
+
+            items.forEach { item ->
+                item.forEach { (label, icon) ->
+                    DropdownMenuItem(text = {
+                        Row {
+                            Icon(imageVector = icon, contentDescription = label,
+                                tint = Color.LightGray)
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Text(text = label)
+                        }
+                    }, onClick = {
+                        expanded.value = false
+                        showDialog.value = false
+                    })
+                }
+            }
+        }
+
+    }
+}
+
+
