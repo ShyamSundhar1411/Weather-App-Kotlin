@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.jetweatherapp.routes.Routes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -133,11 +134,19 @@ fun ShowDropDownMenu(showDialog: MutableState<Boolean>, navController: NavContro
                             Icon(imageVector = icon, contentDescription = label,
                                 tint = Color.LightGray)
                             Spacer(modifier = Modifier.width(10.dp))
-                            Text(text = label)
+                            Text(text = label,
+
+                            )
                         }
                     }, onClick = {
                         expanded.value = false
                         showDialog.value = false
+                        navController.navigate(
+                            when(label){
+                                "About" -> Routes.AboutScreen.name
+                                "Favorites" -> Routes.FavoritesScreen.name
+                                else -> Routes.SettingsScreen.name
+                            })
                     })
                 }
             }

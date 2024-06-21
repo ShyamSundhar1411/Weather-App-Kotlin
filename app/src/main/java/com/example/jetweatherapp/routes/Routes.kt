@@ -5,6 +5,6 @@ enum class Routes {
     MainScreen,
     SearchScreen,
     AboutScreen,
-    FavoriteScreen,
+    FavoritesScreen,
     SettingsScreen
 }
