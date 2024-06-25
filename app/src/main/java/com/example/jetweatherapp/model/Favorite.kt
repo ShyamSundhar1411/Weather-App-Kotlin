@@ -9,7 +9,7 @@ import java.util.UUID
 @Entity(tableName = "favorite_tbl")
 data class Favorite(
     @PrimaryKey
-    val id: UUID,
+    val id: UUID = UUID.randomUUID(),
     @ColumnInfo(name = "city")
     val city: String,
     @ColumnInfo(name = "country")

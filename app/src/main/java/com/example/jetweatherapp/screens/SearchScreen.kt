@@ -43,7 +43,6 @@ fun SearchScreen(navController: NavController){
                  .fillMaxWidth()
                  .align(Alignment.CenterHorizontally),
              ){city->
-
                  navController.navigate(Routes.MainScreen.name+"/$city")
              }
          }

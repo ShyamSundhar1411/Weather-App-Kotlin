@@ -7,14 +7,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.absolutePadding
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
@@ -28,19 +27,25 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.jetweatherapp.model.Favorite
 import com.example.jetweatherapp.routes.Routes
+import com.example.jetweatherapp.viewmodel.FavoriteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,6 +56,7 @@ fun WeatherAppBar(
     isMainScreen: Boolean = true,
     elevation: Dp = 0.dp,
     navController: NavController,
+    favoriteViewModel: FavoriteViewModel = hiltViewModel(),
     onAddActionClicked: () -> Unit = {},
     onButtonClicked: () -> Unit = {}
     ){
@@ -60,6 +66,10 @@ fun WeatherAppBar(
     if (showDialogBox.value) {
         ShowDropDownMenu(showDialog = showDialogBox, navController = navController)
     }
+    val showIt = remember {
+        mutableStateOf(false)
+    }
+    val context = LocalContext.current
     TopAppBar(
         title = {
 
@@ -92,6 +102,39 @@ fun WeatherAppBar(
                                     }
                                  )
                          }
+            if (isMainScreen) {
+                val isAlreadyFavorited = favoriteViewModel.favList.collectAsState().value.filter {
+                    (it.city == title.split(',')[0])
+
+                }
+                if(isAlreadyFavorited.isEmpty()) {
+                    Icon(imageVector = Icons.Default.FavoriteBorder,
+                        contentDescription = "Favorite Icon",
+                        modifier = Modifier
+                            .padding(2.dp)
+                            .scale(0.9f)
+                            .clickable {
+
+                                val city = title.split(',')[0]
+                                val country = title.split(',')[1]
+                                favoriteViewModel.insertFavorite(
+                                    Favorite(
+                                        city = city,
+                                        country = country
+                                    )
+                                ).run {
+                                    showIt.value = true
+                                }
+
+                            }
+                    )
+                }
+                else{
+                    showIt.value = false
+                    Box(modifier = Modifier.padding(2.dp))
+                }
+                ShowToastComponent(context = context,showIt,message = "City Added To Favorites")
+            }
         },
 
     )
